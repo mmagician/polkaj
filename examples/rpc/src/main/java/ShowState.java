@@ -34,6 +34,7 @@ public class ShowState {
                 PolkadotApi.commands().getBlock(hash)
         );
         BlockResponseJson block = blockFuture.get();
+        Hash256 blockHash = client.execute(PolkadotApi.commands().getBlockHash()).get();
 
         String version = client.execute(PolkadotApi.commands().systemVersion())
                 .get(5, TimeUnit.SECONDS);
@@ -50,6 +51,7 @@ public class ShowState {
         System.out.println("Peers count: " + health.getPeers());
         System.out.println("Is syncing: " + health.getSyncing());
         System.out.println("Current head: " + hash);
+        System.out.println("Current block hash: " + blockHash);
         System.out.println("Current height: " + block.getBlock().getHeader().getNumber());
         System.out.println("State hash: " + block.getBlock().getHeader().getStateRoot());
         client.close();
